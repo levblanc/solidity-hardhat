@@ -1,9 +1,11 @@
-require('@nomicfoundation/hardhat-toolbox');
-require('dotenv').config();
-require('hardhat-gas-reporter');
-require('./tasks/block-number');
+import '@nomicfoundation/hardhat-toolbox';
+import 'dotenv/config';
+// run: yarn hardhat typechain, to generate type annotation files
+import '@typechain/hardhat'
+import 'hardhat-gas-reporter';
+import './tasks/block-number';
 // run: yarn hardhat coverage
-require('solidity-coverage');
+import 'solidity-coverage';
 
 const { RINKEBY_RPC_URL, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
 

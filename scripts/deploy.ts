@@ -1,6 +1,6 @@
-const { ethers, run, network } = require('hardhat');
-const hre = require('hardhat');
-require('@nomiclabs/hardhat-etherscan');
+import { ethers, run, network }  from 'hardhat';
+import hre from 'hardhat';
+import '@nomiclabs/hardhat-etherscan';
 
 async function main() {
   const SimpleStorageFactory = await ethers.getContractFactory('SimpleStorage');
@@ -29,7 +29,7 @@ async function main() {
   console.log(`>>>>>> Updated Value: ${updatedValue}`);
 }
 
-async function verify(contractAddress, args) {
+async function verify(contractAddress: string, args: any[]) {
   console.log('>>>>>> Verifying contract ...');
 
   try {
@@ -37,7 +37,7 @@ async function verify(contractAddress, args) {
       address: contractAddress,
       // constructorArgsParams: args,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error.message.toLowerCase().includes('already verified')) {
       console.log('>>>>>> Already verified!');
     } else {
