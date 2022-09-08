@@ -1,7 +1,7 @@
 import '@nomicfoundation/hardhat-toolbox';
 import 'dotenv/config';
 // run: yarn hardhat typechain, to generate type annotation files
-import '@typechain/hardhat'
+import '@typechain/hardhat';
 import 'hardhat-gas-reporter';
 import './tasks/block-number';
 // run: yarn hardhat coverage
@@ -28,7 +28,20 @@ module.exports = {
     },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    // apiKey: ETHERSCAN_API_KEY,
+    apiKey: {
+      rinkeby: ETHERSCAN_API_KEY,
+    },
+    customChains: [
+      {
+        network: 'rinkeby',
+        chainId: 4,
+        urls: {
+          apiURL: 'http://api-rinkeby.etherscan.io/api',
+          browserURL: 'https://rinkeby.etherscan.io',
+        },
+      },
+    ],
   },
   gasReporter: {
     enabled: false, // set to true when needs a report
