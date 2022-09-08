@@ -1,5 +1,4 @@
 const { ethers, run, network } = require('hardhat');
-const hre = require('hardhat');
 require('@nomiclabs/hardhat-etherscan');
 
 async function main() {
@@ -11,13 +10,10 @@ async function main() {
 
   console.log('>>>>>> Contract address', simpleStorage.address);
 
-  // 0x519b3cbf0ef422e38f6ec197cb5c5c3045491a1b
-  // yarn hardhat verify 0x519B3Cbf0EF422e38F6Ec197cB5C5C3045491a1B --network rinkeby --show-stack-traces
-
-  // if (network.config.chainId === 4 && process.env.ETHERSCAN_API_KEY) {
-  //   await simpleStorage.deployTransaction.wait(3);
-  //   await verify(simpleStorage.address, []);
-  // }
+  if (network.config.chainId === 4 && process.env.ETHERSCAN_API_KEY) {
+    await simpleStorage.deployTransaction.wait(3);
+    await verify(simpleStorage.address, []);
+  }
 
   const currentValue = await simpleStorage.retrieve();
   console.log(`>>>>>> Current Value: ${currentValue}`);
@@ -35,7 +31,7 @@ async function verify(contractAddress, args) {
   try {
     await run('verify:verify', {
       address: contractAddress,
-      // constructorArgsParams: args,
+      constructorArgsParams: args,
     });
   } catch (error) {
     if (error.message.toLowerCase().includes('already verified')) {

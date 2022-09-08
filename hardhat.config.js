@@ -26,7 +26,20 @@ module.exports = {
     },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    // apiKey: ETHERSCAN_API_KEY,
+    apiKey: {
+      rinkeby: ETHERSCAN_API_KEY,
+    },
+    customChains: [
+      {
+        network: 'rinkeby',
+        chainId: 4,
+        urls: {
+          apiURL: 'http://api-rinkeby.etherscan.io/api',
+          browserURL: 'https://rinkeby.etherscan.io',
+        },
+      },
+    ],
   },
   gasReporter: {
     enabled: false, // set to true when needs a report
