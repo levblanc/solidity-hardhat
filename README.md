@@ -11,3 +11,11 @@ GAS_REPORT=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+```zsh
+# Run tests and generate coverage report
+yarn hardhat coverage
+
+# Generate type annotation files
+yarn hardhat typechain
+```
