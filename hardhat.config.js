@@ -2,18 +2,19 @@ require('@nomicfoundation/hardhat-toolbox');
 require('dotenv').config();
 require('./tasks/block-number');
 
-const { RINKEBY_RPC_URL, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
+const { GOERLI_RPC_URL, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   defaultNetwork: 'hardhat',
   solidity: '0.8.8',
   networks: {
-    // yarn hardhat run scripts/deploy.js --network rinkeby
-    rinkeby: {
-      url: RINKEBY_RPC_URL,
+    // yarn hardhat run scripts/deploy.js --network goerli
+    goerli: {
+      url: GOERLI_RPC_URL,
       accounts: [PRIVATE_KEY],
-      chainId: 4,
+      chainId: 5,
+      blockConfirmations: 6,
     },
     // To spin up a local hardhat node:
     // yarn hardhat node
@@ -23,17 +24,14 @@ module.exports = {
     },
   },
   etherscan: {
-    // apiKey: ETHERSCAN_API_KEY,
-    apiKey: {
-      rinkeby: ETHERSCAN_API_KEY,
-    },
+    apiKey: ETHERSCAN_API_KEY,
     customChains: [
       {
-        network: 'rinkeby',
-        chainId: 4,
+        network: 'goerli',
+        chainId: 5,
         urls: {
-          apiURL: 'http://api-rinkeby.etherscan.io/api',
-          browserURL: 'https://rinkeby.etherscan.io',
+          apiURL: 'http://api-goerli.etherscan.io/api',
+          browserURL: 'https://goerli.etherscan.io',
         },
       },
     ],
