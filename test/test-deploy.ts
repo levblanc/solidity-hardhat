@@ -1,13 +1,15 @@
 import { assert } from 'chai';
 import { ethers } from 'hardhat';
-import {SimpleStorage, SimpleStorage__factory} from '../typechain-types'
+import { SimpleStorage, SimpleStorage__factory } from '../typechain-types';
 
 describe('SimpleStorage', () => {
-  let simpleStorageFactory: SimpleStorage__factory 
+  let simpleStorageFactory: SimpleStorage__factory;
   let simpleStorage: SimpleStorage;
 
   beforeEach(async () => {
-    simpleStorageFactory = (await ethers.getContractFactory('SimpleStorage')) as SimpleStorage__factory;
+    simpleStorageFactory = (await ethers.getContractFactory(
+      'SimpleStorage'
+    )) as SimpleStorage__factory;
     simpleStorage = await simpleStorageFactory.deploy();
   });
 
@@ -24,5 +26,17 @@ describe('SimpleStorage', () => {
 
     const updatedValue = await simpleStorage.retrieve();
     assert.equal(updatedValue.toString(), expectedValue);
+  });
+
+  it('Should add a person with his favourite number', async () => {
+    const number = '1';
+    const name = 'Joe';
+
+    const txResponse = await simpleStorage.addPerson(name, number);
+    await txResponse.wait(1);
+
+    const favNum = await simpleStorage.nameToFavoriteNumber(name);
+
+    assert(number, favNum.toString());
   });
 });
