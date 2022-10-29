@@ -23,4 +23,16 @@ describe('SimpleStorage', () => {
     const updatedValue = await simpleStorage.retrieve();
     assert.equal(updatedValue.toString(), expectedValue);
   });
+
+  it('Should add a person with his favourite number', async () => {
+    const number = '1';
+    const name = 'Joe';
+
+    const txResponse = await simpleStorage.addPerson(name, number);
+    await txResponse.wait(1);
+
+    const favNum = await simpleStorage.nameToFavoriteNumber(name);
+
+    assert(number, favNum);
+  });
 });
